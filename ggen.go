@@ -1,11 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"math/rand"
-	"os"
 	"os/exec"
-	"strconv"
 	"time"
 )
 
@@ -14,7 +13,7 @@ var (
 	upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	digits       = "0123456789"
 	symbols      = "~!@#$%^&*()_+`-={}|[]\\:\"<>?,./"
-	passLength   = 8
+	passLength   = flag.Int("n", 8, "specify generate password length")
 )
 
 func shuffle(val []rune) {
@@ -28,19 +27,13 @@ func shuffle(val []rune) {
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		l, err := strconv.Atoi(args[0])
-		if err != nil {
-			fmt.Println("error: cannno generate password")
-		}
-		passLength = l
-	}
 	passSource := []rune(lowerLetters + upperLetters + digits + symbols)
 	shuffle(passSource)
 
+	flag.Parse()
+
 	password := ""
-	for _, r := range passSource[:passLength] {
+	for _, r := range passSource[:*passLength] {
 		password += string(r)
 	}
 	fmt.Println(password)
