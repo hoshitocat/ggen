@@ -8,6 +8,8 @@ import (
 	"os/exec"
 	"strings"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 var (
@@ -17,6 +19,7 @@ var (
 	symbols      = "~!@#$%^&*()_+`-={}|[]\\:\"<>?,./"
 	passLength   = flag.Int("n", 8, "specify generate password length")
 	format       = flag.String("f", "LUDS", "generated password using you can select characters")
+	uuidFlag     = flag.Bool("uuid", false, "generated uuid v4")
 )
 
 func shuffle(val []rune) {
@@ -92,17 +95,26 @@ func copyToClipboard(password string) error {
 	return nil
 }
 
+func uuidV4() string {
+	return uuid.New().String()
+}
+
 func main() {
 	flag.Parse()
 
-	passSource := characters()
-	shuffle(passSource)
-	password := ""
-	for _, r := range passSource[:*passLength] {
-		password += string(r)
+	generated := ""
+	if *uuidFlag {
+		generated = uuidV4()
+	} else {
+		passSource := characters()
+		shuffle(passSource)
+		for _, r := range passSource[:*passLength] {
+			generated += string(r)
+		}
 	}
-	fmt.Println(password)
-	if err := copyToClipboard(password); err != nil {
+
+	fmt.Println(generated)
+	if err := copyToClipboard(generated); err != nil {
 		_, e := fmt.Fprintf(os.Stderr, "error occured: cannot copy to clipboard: %s", err.Error())
 		if e != nil {
 			panic(err)
