@@ -2,4 +2,13 @@
 ggen is password generator written by Pure Go language.
 
 # Usage
-todo
+
+```shell
+ggen
+```
+
+## UUID v4
+
+```shell
+ggen -uuid
+```
