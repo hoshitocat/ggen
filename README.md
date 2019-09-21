@@ -7,8 +7,16 @@ ggen is password generator written by Pure Go language.
 ggen
 ```
 
-## UUID v4
+`-f` you can customize password characters
 
-```shell
-ggen -uuid
-```
+| Specifier | Description |
+|---|---|---
+| `L` | Lower letters |
+| `U` | Upper letters |
+| `D` | Digits ( 0~9 ) |
+| `S` | Symbols ``~!@#$%^&*()_+`-={}|[]\\:\"<>?,./`` |
+
+`-n` number of length. default length is 8.
+
+`-uuid` generated UUID v4
+
