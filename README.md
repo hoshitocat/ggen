@@ -10,7 +10,7 @@ ggen
 `-f` you can customize password characters
 
 | Specifier | Description |
-|---|---|---
+|---|---|
 | `L` | Lower letters |
 | `U` | Upper letters |
 | `D` | Digits ( 0~9 ) |
