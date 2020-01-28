@@ -20,7 +20,6 @@ var (
 	passLength   = flag.Int("n", 8, "specify generate password length")
 	format       = flag.String("f", "LUDS", "generated password using you can select characters")
 	uuidFlag     = flag.Bool("uuid", false, "generated uuid v4")
-	helpFlag     = flag.Bool("-help", false, "help")
 )
 
 func shuffle(val []rune) {
@@ -101,13 +100,29 @@ func uuidV4() string {
 }
 
 func main() {
+	flag.Usage = func() {
+		helpTxt := `
+USAGE:
+  ggen [options]
+
+OPTIONS:
+	-h, --help			show help
+	-v, --version		print the version
+	-l[number of length], --lower			use lower letters
+	-U[number of length], --upper			use upper letters
+	-d[number of length], --digit			use digits
+	-s[number of length], --symbol		use symbols
+	-n, --num				password length
+	-u, --uuid			generated UUID v4
+`
+		fmt.Fprintf(os.Stderr, "%s\n", helpTxt)
+	}
+
 	flag.Parse()
 
 	generated := ""
 	if *uuidFlag {
 		generated = uuidV4()
-	} else if *helpFlag {
-		fmt.Printf("help")
 	} else {
 		passSource := characters()
 		shuffle(passSource)
