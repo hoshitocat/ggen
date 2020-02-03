@@ -101,20 +101,18 @@ func uuidV4() string {
 
 func main() {
 	flag.Usage = func() {
-		helpTxt := `
-USAGE:
+		helpTxt := `USAGE:
   ggen [options]
 
 OPTIONS:
-	-h, --help											show help
-	-v, --version										print the version
-	-l, --lower	[number of length]	use lower letters
-	-U, --upper	[number of length]	use upper letters
-	-d, --digit	[number of length]	use digits
-	-s, --symbol [number of length]	use symbols
-	-n, --num												password length
-	-u, --uuid											generated UUID v4
-`
+  -h, --help                      show help
+  -v, --version                   print the version
+  -l, --lower  [number of length] use lower letters
+  -U, --upper  [number of length] use upper letters
+  -d, --digit  [number of length] use digits
+  -s, --symbol [number of length] use symbols
+  -n, --num                       password length
+  -u, --uuid                      generated UUID v4`
 		fmt.Fprintf(os.Stderr, "%s\n", helpTxt)
 	}
 
